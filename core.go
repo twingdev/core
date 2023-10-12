@@ -2,11 +2,6 @@ package core
 
 import (
 	"github.com/defval/di"
-	"github.com/ipfs/boxo/blockservice"
-	"github.com/ipfs/boxo/blockstore"
-	"github.com/ipfs/boxo/fetcher"
-	"github.com/ipfs/boxo/filestore"
-	"github.com/ipfs/boxo/mfs"
 	blocks "github.com/ipfs/go-block-format"
 	ipld "github.com/ipfs/go-ipld-format"
 	record "github.com/libp2p/go-libp2p-record"
@@ -27,16 +22,16 @@ type TwingNode struct {
 
 type NodeServices struct {
 	Peerstore            pstore.Peerstore          `optional:"true"` // storage for other Peer instances
-	Blockstore           blockstore.Blockstore     // the block store (lower level)
-	Filestore            *filestore.Filestore      `optional:"true"` // the filestore blockstore
+	Blockstore           interface{}               // the block store (lower level)
+	Filestore            interface{}               `optional:"true"` // the filestore blockstore
 	BaseBlocks           blocks.BasicBlock         // the raw blockstore, no filestore wrapping
-	Blocks               blockservice.BlockService // the block service, get/add blocks.
+	Blocks               interface{}               // the block service, get/add blocks.
 	DAG                  ipld.DAGService           // the merkle dag service, get/add objects.
-	IPLDFetcherFactory   fetcher.Factory           `name:"ipldFetcher"`   // fetcher that paths over the IPLD data model
-	UnixFSFetcherFactory fetcher.Factory           `name:"unixfsFetcher"` // fetcher that interprets UnixFS data
+	IPLDFetcherFactory   interface{}               `name:"ipldFetcher"`   // fetcher that paths over the IPLD data model
+	UnixFSFetcherFactory interface{}               `name:"unixfsFetcher"` // fetcher that interprets UnixFS data
 	Reporter             *metrics.BandwidthCounter `optional:"true"`
 	Discovery            discovery.Service         `optional:"true"`
-	FilesRoot            *mfs.Root
+	FilesRoot            interface{}
 	RecordValidator      record.Validator
 }
 

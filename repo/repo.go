@@ -1,8 +1,6 @@
 package repo
 
 import (
-	"github.com/ipfs/boxo/filestore"
-	"github.com/ipfs/boxo/keystore"
 	"github.com/ipfs/go-datastore"
 	ma "github.com/multiformats/go-multiaddr"
 	"github.com/twingdev/go-twing/core/config"
@@ -15,8 +13,8 @@ type Repo interface {
 	SetConfigKey(key string, value interface{}) error
 	GetConfigKey(key string) (interface{}, error)
 	Datastore() Datastore
-	Keystore() keystore.Keystore
-	FileManager() *filestore.FileManager
+	Keystore() interface{}
+	FileManager() interface{}
 	SetAPIAddr(addr ma.Multiaddr) error
 
 	// SwarmKey returns the configured shared symmetric key for the private networks feature.
